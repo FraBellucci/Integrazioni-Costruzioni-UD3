@@ -111,22 +111,17 @@
         }
 
         .score-counter {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
             color: #3498db;
-            margin: 15px 0;
-        }
-
-        .progress-text {
-            color: #7f8c8d;
-            font-size: 0.95em;
+            margin: 10px 0;
         }
 
         .site-layout {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 120px);
-            gap: 10px;
+            grid-template-rows: repeat(4, 140px);
+            gap: 12px;
             margin-bottom: 30px;
             background: #ecf0f1;
             padding: 20px;
@@ -137,90 +132,87 @@
             background: white;
             border: 3px solid #bdc3c7;
             border-radius: 8px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
+            padding: 12px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            justify-content: space-between;
+            transition: all 0.3s;
             position: relative;
         }
 
-        .zone:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border-color: #3498db;
+        .zone.flagged {
+            background: #fff3e0;
+            border-color: #ff9800;
         }
 
-        .zone.checked {
-            background: #e8f5e9;
-            border-color: #4caf50;
-        }
-
-        .zone.checked::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: #4caf50;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        .zone.has-error {
-            background: #ffebee;
-            border-color: #f44336;
-        }
-
-        .zone.has-error::before {
-            content: '!';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: #f44336;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.4em;
+        .zone-header {
+            text-align: center;
+            margin-bottom: 8px;
         }
 
         .zone-icon {
             font-size: 2em;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .zone-label {
             font-weight: 600;
             color: #2c3e50;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            line-height: 1.2;
         }
 
-        /* Posizioni specifiche delle zone */
-        .zone-ingresso { grid-column: 1; grid-row: 1; background: #fff3e0; }
-        .zone-viabilita-mezzi { grid-column: 2 / 4; grid-row: 1; background: #e0f2f1; }
-        .zone-baraccamenti { grid-column: 4; grid-row: 1 / 3; background: #f3e5f5; }
-        .zone-deposito-materiali { grid-column: 1 / 3; grid-row: 2; background: #ffe0b2; }
-        .zone-gru { grid-column: 3; grid-row: 2 / 4; background: #e1f5fe; }
-        .zone-scavo { grid-column: 1; grid-row: 3; background: #efebe9; }
-        .zone-ponteggi { grid-column: 2; grid-row: 3; background: #fce4ec; }
-        .zone-viabilita-pedoni { grid-column: 1 / 3; grid-row: 4; background: #f1f8e9; }
-        .zone-scarico { grid-column: 3; grid-row: 4; background: #fff9c4; }
-        .zone-servizi { grid-column: 4; grid-row: 3; background: #e0f7fa; }
-        .zone-rifiuti { grid-column: 4; grid-row: 4; background: #d7ccc8; }
+        .zone-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .zone-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-details {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .btn-details:hover {
+            background: #bbdefb;
+        }
+
+        .btn-flag {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .btn-flag:hover {
+            background: #ffe0b2;
+        }
+
+        .btn-flag.active {
+            background: #ff9800;
+            color: white;
+        }
+
+        /* Posizioni specifiche */
+        .zone-ingresso { grid-column: 1; grid-row: 1; }
+        .zone-viabilita-mezzi { grid-column: 2 / 4; grid-row: 1; }
+        .zone-baraccamenti { grid-column: 4; grid-row: 1 / 3; }
+        .zone-deposito-materiali { grid-column: 1 / 3; grid-row: 2; }
+        .zone-gru { grid-column: 3; grid-row: 2 / 4; }
+        .zone-scavo { grid-column: 1; grid-row: 3; }
+        .zone-ponteggi { grid-column: 2; grid-row: 3; }
+        .zone-viabilita-pedoni { grid-column: 1 / 3; grid-row: 4; }
+        .zone-scarico { grid-column: 3; grid-row: 4; }
+        .zone-servizi { grid-column: 4; grid-row: 3; }
+        .zone-rifiuti { grid-column: 4; grid-row: 4; }
 
         .modal {
             display: none;
@@ -287,68 +279,32 @@
             font-size: 0.9em;
         }
 
-        .error-list {
-            background: #ffebee;
-            border-left: 4px solid #f44336;
+        .description-box {
+            background: #f8f9fa;
             padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
         }
 
-        .error-list h4 {
-            color: #c62828;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .error-item {
-            background: white;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            display: flex;
-            align-items: start;
-        }
-
-        .error-item::before {
-            content: '⚠️';
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-
-        .error-item p {
-            color: #424242;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .compliance-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
-
-        .compliance-box h4 {
-            color: #2e7d32;
+        .description-box h4 {
+            color: #2c3e50;
             margin-bottom: 12px;
-            font-size: 1.1em;
         }
 
-        .compliance-box p {
-            color: #424242;
+        .description-box p {
+            color: #495057;
             line-height: 1.7;
+            margin-bottom: 10px;
         }
 
-        .norm-reference {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #616161;
-            font-style: italic;
+        .description-box ul {
+            margin-left: 20px;
+            color: #495057;
+        }
+
+        .description-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
         }
 
         .btn {
@@ -385,6 +341,13 @@
             margin-top: 20px;
             display: flex;
             justify-content: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
         }
 
         .results-section {
@@ -428,41 +391,78 @@
             color: white;
         }
 
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        .analysis-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
 
-        .summary-card {
+        .analysis-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .zone-result {
             background: white;
             padding: 20px;
+            margin-bottom: 15px;
             border-radius: 8px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #bdc3c7;
         }
 
-        .summary-card h4 {
+        .zone-result.correct {
+            border-left-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .zone-result.missed {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+
+        .zone-result.false-positive {
+            border-left-color: #ff9800;
+            background: #fff3e0;
+        }
+
+        .zone-result h4 {
             color: #2c3e50;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-        }
-
-        .summary-card ul {
-            margin-left: 20px;
-            color: #555;
-        }
-
-        .summary-card li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-
-        .button-group {
+            margin-bottom: 10px;
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .zone-result .status {
+            font-size: 1.5em;
+        }
+
+        .zone-result p {
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .zone-result ul {
+            margin: 10px 0 10px 20px;
+            color: #495057;
+        }
+
+        .zone-result li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .norm-ref {
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
         }
 
         @media print {
@@ -473,14 +473,11 @@
             .container {
                 box-shadow: none;
             }
-            .header, .button-group, .btn, .modal {
+            .header, .button-group, .btn, .modal, .score-display {
                 display: none !important;
             }
             .no-print {
                 display: none !important;
-            }
-            .site-layout {
-                page-break-before: avoid;
             }
         }
 
@@ -526,11 +523,11 @@
                 <div class="instructions">
                     <h3>📌 Istruzioni</h3>
                     <ul>
-                        <li>Clicca su ogni zona del cantiere per ispezionarla</li>
-                        <li>Alcune zone presentano errori organizzativi o logistici</li>
-                        <li>Altre zone sono conformi e non richiedono correzioni</li>
-                        <li>Devi identificare <strong>tutti gli errori presenti</strong> (almeno 8 su 11 zone)</li>
-                        <li>Per ogni zona riceverai feedback dettagliato con riferimenti normativi</li>
+                        <li>Osserva il layout del cantiere (11 zone totali)</li>
+                        <li>Per ogni zona puoi cliccare <strong>"📋 Vedi Dettagli"</strong> per leggere la situazione specifica</li>
+                        <li>Se ritieni che una zona presenti errori organizzativi o logistici, clicca <strong>"⚠️ Segnala Errore"</strong></li>
+                        <li>Puoi rivedere i dettagli e cambiare idea quante volte vuoi</li>
+                        <li>Quando hai finito la valutazione, clicca <strong>"Conferma Valutazione"</strong></li>
                     </ul>
                 </div>
 
@@ -541,72 +538,16 @@
 
             <!-- Display Punteggio -->
             <div class="score-display" id="scoreDisplay">
-                <h3>Avanzamento Ispezione</h3>
+                <h3>Zone Segnalate con Errori</h3>
                 <div class="score-counter" id="scoreCounter">0 / 11</div>
-                <p class="progress-text">Zone ispezionate</p>
             </div>
 
             <!-- Layout Cantiere -->
-            <div id="siteLayout" class="site-layout" style="display: none;">
-                <div class="zone zone-ingresso" onclick="inspectZone('ingresso')">
-                    <div class="zone-icon">🚪</div>
-                    <div class="zone-label">Ingresso<br>Cantiere</div>
-                </div>
+            <div id="siteLayout" class="site-layout" style="display: none;"></div>
 
-                <div class="zone zone-viabilita-mezzi" onclick="inspectZone('viabilita-mezzi')">
-                    <div class="zone-icon">🚛</div>
-                    <div class="zone-label">Viabilità<br>Mezzi</div>
-                </div>
-
-                <div class="zone zone-baraccamenti" onclick="inspectZone('baraccamenti')">
-                    <div class="zone-icon">🏠</div>
-                    <div class="zone-label">Baraccamenti<br>e Uffici</div>
-                </div>
-
-                <div class="zone zone-deposito-materiali" onclick="inspectZone('deposito-materiali')">
-                    <div class="zone-icon">📦</div>
-                    <div class="zone-label">Deposito<br>Materiali</div>
-                </div>
-
-                <div class="zone zone-gru" onclick="inspectZone('gru')">
-                    <div class="zone-icon">🏗️</div>
-                    <div class="zone-label">Area Gru<br>Torre</div>
-                </div>
-
-                <div class="zone zone-scavo" onclick="inspectZone('scavo')">
-                    <div class="zone-icon">⛏️</div>
-                    <div class="zone-label">Area<br>Scavo</div>
-                </div>
-
-                <div class="zone zone-ponteggi" onclick="inspectZone('ponteggi')">
-                    <div class="zone-icon">🪜</div>
-                    <div class="zone-label">Ponteggi<br>Facciata</div>
-                </div>
-
-                <div class="zone zone-viabilita-pedoni" onclick="inspectZone('viabilita-pedoni')">
-                    <div class="zone-icon">🚶</div>
-                    <div class="zone-label">Viabilità<br>Pedonale</div>
-                </div>
-
-                <div class="zone zone-scarico" onclick="inspectZone('scarico')">
-                    <div class="zone-icon">📥</div>
-                    <div class="zone-label">Zona<br>Scarico</div>
-                </div>
-
-                <div class="zone zone-servizi" onclick="inspectZone('servizi')">
-                    <div class="zone-icon">🚻</div>
-                    <div class="zone-label">Servizi<br>Igienici</div>
-                </div>
-
-                <div class="zone zone-rifiuti" onclick="inspectZone('rifiuti')">
-                    <div class="zone-icon">🗑️</div>
-                    <div class="zone-label">Deposito<br>Rifiuti</div>
-                </div>
-            </div>
-
-            <div class="button-group no-print" id="finalizeBtn" style="display: none; margin-top: 30px;">
+            <div class="button-group no-print" id="finalizeBtn" style="display: none;">
                 <button class="btn btn-primary" onclick="finalizeInspection()">
-                    📊 Completa Ispezione e Visualizza Report
+                    📊 Conferma Valutazione e Visualizza Risultati
                 </button>
             </div>
 
@@ -622,7 +563,10 @@
                     <p id="finalMessage" style="color: #555; font-size: 1.1em; margin-top: 15px;"></p>
                 </div>
 
-                <div class="summary-grid" id="summaryGrid"></div>
+                <div class="analysis-section">
+                    <h3>📋 Analisi Dettagliata per Zona</h3>
+                    <div id="detailedResults"></div>
+                </div>
 
                 <div class="button-group no-print">
                     <button class="btn btn-primary" onclick="window.print()">
@@ -639,233 +583,204 @@
         </div>
     </div>
 
-    <!-- Modal per feedback zona -->
+    <!-- Modal per dettagli zona -->
     <div class="modal" id="zoneModal">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-icon" id="modalIcon">🏗️</div>
                 <div class="modal-title">
                     <h3 id="modalTitle">Titolo Zona</h3>
-                    <p id="modalSubtitle">Sottotitolo</p>
+                    <p>Descrizione della situazione attuale</p>
                 </div>
             </div>
             <div id="modalBody"></div>
             <div class="modal-footer">
                 <button class="btn btn-primary" onclick="closeModal()">
-                    Chiudi e Continua Ispezione
+                    Chiudi
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Database zone e errori
+        // Database zone con descrizioni NEUTRE (senza dire se è errore o meno)
         const zonesData = {
             'ingresso': {
                 icon: '🚪',
                 title: 'Ingresso Cantiere',
+                description: 'All\'ingresso del cantiere è presente un cancello metallico con lucchetto. Non è presente un cartello identificativo permanente con i dati del committente e delle imprese. Il badge elettronico non è stato ancora implementato. Non risulta un registro cartaceo delle presenze posizionato all\'entrata.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'Mancanza di cartello identificativo del cantiere con dati committente e imprese (obbligatorio per art. 90 D.Lgs. 81/2008)',
                     'Assenza di registro delle presenze all\'ingresso',
                     'Badge elettronico non implementato (obbligo L. 159/2025)'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, art. 90 e 26; Legge 159/2025 (patente a crediti e badge elettronico)'
             },
             'viabilita-mezzi': {
                 icon: '🚛',
                 title: 'Viabilità Mezzi',
+                description: 'Il percorso per i mezzi d\'opera attraversa l\'intera lunghezza del cantiere. Nello stesso spazio transitano anche i lavoratori a piedi. Non sono presenti strisce di demarcazione o segnaletica orizzontale. Agli incroci non ci sono specchi parabolici. La larghezza del percorso è di circa 4 metri.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'La viabilità dei mezzi non è separata fisicamente da quella pedonale (violazione art. 108 D.Lgs. 81/2008)',
                     'Assenza di segnaletica orizzontale (strisce gialle) e verticale (cartelli limite velocità)',
                     'Mancano specchi parabolici negli incroci ciechi'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, art. 108 - Viabilità nei cantieri; Allegato XVIII punto 1'
             },
             'baraccamenti': {
                 icon: '🏠',
                 title: 'Baraccamenti e Uffici',
+                description: 'I container prefabbricati sono posizionati a 15 metri dall\'area operativa principale, in zona pianeggiante. Sono dotati di finestre apribili e ventilazione naturale. Le uscite di sicurezza sono chiaramente segnalate e non ostruite. Sono presenti estintori a polvere ABC ogni 10 metri. L\'illuminazione è garantita da lampade a LED.',
                 hasError: false,
-                errors: null,
-                compliance: 'I baraccamenti sono posizionati correttamente: distanti dall\'area operativa, con vie di fuga libere, illuminazione naturale e aerazione adeguata. Presenti estintori a polvere ABC ogni 10 metri. Conformi all\'Allegato XIII D.Lgs. 81/2008.',
+                errorDetails: null,
+                complianceReason: 'I baraccamenti sono conformi: distanti dall\'area operativa, con vie di fuga libere, illuminazione naturale e aerazione adeguata. Presenti estintori a polvere ABC ogni 10 metri. Conformi all\'Allegato XIII D.Lgs. 81/2008.',
                 norm: 'D.Lgs. 81/2008, Allegato XIII - Requisiti luoghi di lavoro'
             },
             'deposito-materiali': {
                 icon: '📦',
                 title: 'Deposito Materiali',
+                description: 'Il deposito materiali si trova in un\'area coperta vicino all\'ingresso. I sacchi di cemento sono appoggiati direttamente sul pavimento. Accanto ci sono fusti di vernici e solventi. Il deposito si trova lungo quella che sembrerebbe essere una delle vie di uscita del cantiere. Non sono presenti cartelli che indichino limiti di peso o portata.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'I materiali sono depositati sopra una via di fuga (violazione D.M. 3/9/2021 su emergenze)',
                     'Assenza di separazione tra materiali combustibili e infiammabili',
                     'Sacchi di cemento stoccati direttamente a terra senza pallets (rischio umidità e degrado)',
                     'Mancanza di cartello indicante portata massima del solaio'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, Allegato IV punto 1.4; D.M. 3 settembre 2021 (antincendio)'
             },
             'gru': {
                 icon: '🏗️',
                 title: 'Area Gru Torre',
+                description: 'La gru torre è installata nella zona centrale del cantiere. L\'area sottostante il braccio rotante non presenta delimitazioni fisiche. Non ci sono cartelli che vietino l\'accesso o la sosta. Il libretto della gru è conservato nell\'ufficio di cantiere. L\'ultima verifica periodica risulta effettuata 8 mesi fa.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'L\'area sottostante alla gru non è delimitata con transenne o barriere fisse',
                     'Manca segnaletica di divieto di accesso e sosta',
                     'Non risulta verificato il libretto di manutenzione della gru (ultimo controllo > 6 mesi fa)'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, artt. 70-71 e Allegato VI; UNI ISO 9927 (verifiche apparecchi di sollevamento)'
             },
             'scavo': {
                 icon: '⛏️',
                 title: 'Area Scavo',
+                description: 'È presente uno scavo di 2,5 metri di profondità per la realizzazione delle fondazioni. Le pareti dello scavo sono verticali e non sono presenti strutture di sostegno. Il materiale di risulta è accatastato a circa 40 cm dal bordo. Per scendere nello scavo i lavoratori utilizzano una scala a pioli appoggiata alla parete.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'Lo scavo profondo 2,5 m è privo di armature di sostegno (violazione art. 119 D.Lgs. 81/2008)',
                     'Materiali di risulta accatastati a meno di 60 cm dal bordo scavo (rischio franamento)',
                     'Assenza di scala di accesso sicura per gli operatori'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, artt. 119-120 - Scavi e fondazioni'
             },
             'ponteggi': {
                 icon: '🪜',
                 title: 'Ponteggi Facciata',
+                description: 'Il ponteggio metallico copre l\'intera facciata dell\'edificio. È dotato di parapetti su tutti i piani, tavole fermapiede e mantovane installate ogni 12 metri. Gli ancoraggi alla struttura sono visibili e distanziati secondo norma. È presente il verbale di montaggio firmato e datato, conservato nell\'ufficio di cantiere.',
                 hasError: false,
-                errors: null,
-                compliance: 'Il ponteggio è conforme: presenza di parapetti completi su tutti i lati, tavole fermapiede, mantovane ogni 12 m, ancoraggi verificati. Presente verbale di montaggio firmato dal preposto. Conforme a Allegato XVIII D.Lgs. 81/2008 e UNI EN 12811.',
+                errorDetails: null,
+                complianceReason: 'Il ponteggio è conforme: presenza di parapetti completi su tutti i lati, tavole fermapiede, mantovane ogni 12 m, ancoraggi verificati. Presente verbale di montaggio firmato dal preposto. Conforme a Allegato XVIII D.Lgs. 81/2008 e UNI EN 12811.',
                 norm: 'D.Lgs. 81/2008, Allegato XVIII - Lavori in quota e ponteggi; UNI EN 12811'
             },
             'viabilita-pedoni': {
                 icon: '🚶',
                 title: 'Viabilità Pedonale',
+                description: 'Il percorso pedonale principale del cantiere passa direttamente sotto il raggio di azione della gru torre. Non sono presenti tettoie o coperture protettive sopra questo percorso. L\'illuminazione serale è garantita da lampade a LED montate su pali, ma alcune zone rimangono poco illuminate.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'Il percorso pedonale passa sotto la zona di sollevamento della gru (rischio caduta materiali)',
                     'Assenza di pensiline o tunnel protettivi',
                     'Illuminazione insufficiente per transiti notturni o in condizioni di scarsa visibilità'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, art. 108 e 153 (protezione caduta materiali dall\'alto)'
             },
             'scarico': {
                 icon: '📥',
                 title: 'Zona Scarico',
+                description: 'La zona di scarico merci è delimitata con nastro bianco-rosso e cartelli di avviso. Durante le operazioni di scarico è sempre presente un operatore a terra che assiste l\'autista nelle manovre di retromarcia. L\'area è separata dalla viabilità principale ed è ben visibile dall\'ingresso.',
                 hasError: false,
-                errors: null,
-                compliance: 'La zona scarico è correttamente delimitata, segnalata e separata dalla viabilità principale. Presente moviere durante le operazioni di retromarcia. Conforme alle procedure del Piano Operativo di Sicurezza.',
+                errorDetails: null,
+                complianceReason: 'La zona scarico è correttamente delimitata, segnalata e separata dalla viabilità principale. Presente moviere durante le operazioni di retromarcia. Conforme alle procedure del Piano Operativo di Sicurezza.',
                 norm: 'D.Lgs. 81/2008, art. 96 - Obblighi imprese esecutrici; Allegato VI punto 3'
             },
             'servizi': {
                 icon: '🚻',
                 title: 'Servizi Igienici',
+                description: 'I servizi igienici sono costituiti da due container WC chimici posizionati vicino ai baraccamenti. Sono presenti lavabi con acqua fredda. Non ci sono armadietti spogliatoio separati. Il numero di lavoratori presenti in cantiere è di circa 28 persone. I WC vengono puliti una volta a settimana da ditta esterna.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'I servizi sono dimensionati per 15 lavoratori, ma in cantiere operano 28 persone (sottodimensionamento)',
                     'Mancanza di acqua calda per il lavaggio (obbligatoria in presenza di agenti chimici o biologici)',
                     'Assenza di armadietti spogliatoio separati per indumenti da lavoro e civili'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 81/2008, Allegato XIII - Locali di riposo, spogliatoi, servizi igienici'
             },
             'rifiuti': {
                 icon: '🗑️',
                 title: 'Deposito Rifiuti',
+                description: 'Il deposito rifiuti è un\'area all\'aperto con tre cassoni metallici. In un cassone sono presenti mattoni, calcinacci e sacchi di cemento vuoti. In un altro ci sono barattoli di vernici, flaconi di solventi e stracci sporchi. I contenitori non hanno coperchio e non presentano etichette. Non è presente documentazione relativa alla gestione dei rifiuti.',
                 hasError: true,
-                errors: [
+                errorDetails: [
                     'Rifiuti speciali (vernici, solventi) mischiati con rifiuti inerti (mattoni, calcinacci)',
                     'Contenitori privi di copertura e etichettatura con codice CER',
                     'Assenza di bacino di contenimento per liquidi pericolosi',
                     'Nessun registro di carico/scarico rifiuti presente in cantiere'
                 ],
-                compliance: null,
                 norm: 'D.Lgs. 152/2006 (Testo Unico Ambiente); D.Lgs. 81/2008, Titolo IX (sostanze pericolose)'
             }
         };
 
-        let inspectedZones = [];
-        let totalZones = Object.keys(zonesData).length;
-        let errorsFound = 0;
+        let flaggedZones = [];
 
         function startInspection() {
             document.getElementById('intro').style.display = 'none';
-            document.getElementById('siteLayout').style.display = 'grid';
             document.getElementById('scoreDisplay').classList.add('active');
+            document.getElementById('finalizeBtn').style.display = 'flex';
+            populateLayout();
         }
 
-        function inspectZone(zoneId) {
-            if (inspectedZones.includes(zoneId)) {
-                return; // Già ispezionata
-            }
-
-            const zone = zonesData[zoneId];
-            const zoneElement = document.querySelector(`.zone-${zoneId}`);
-
-            // Marca come ispezionata
-            inspectedZones.push(zoneId);
-            zoneElement.classList.add('checked');
+        function populateLayout() {
+            const layout = document.getElementById('siteLayout');
+            layout.style.display = 'grid';
             
-            if (zone.hasError) {
-                zoneElement.classList.add('has-error');
-                errorsFound++;
-            }
-
-            // Aggiorna contatore
-            updateScore();
-
-            // Mostra modal con feedback
-            showModal(zone);
-
-            // Mostra bottone finalizza se tutte ispezionate
-            if (inspectedZones.length === totalZones) {
-                document.getElementById('finalizeBtn').style.display = 'flex';
-            }
+            Object.keys(zonesData).forEach(zoneId => {
+                const zone = zonesData[zoneId];
+                const zoneDiv = document.createElement('div');
+                zoneDiv.className = `zone zone-${zoneId}`;
+                zoneDiv.innerHTML = `
+                    <div class="zone-header">
+                        <div class="zone-icon">${zone.icon}</div>
+                        <div class="zone-label">${zone.title}</div>
+                    </div>
+                    <div class="zone-actions">
+                        <button class="zone-btn btn-details" onclick="viewDetails('${zoneId}')">
+                            📋 Vedi Dettagli
+                        </button>
+                        <button class="zone-btn btn-flag" id="flag-${zoneId}" onclick="toggleFlag('${zoneId}')">
+                            ⚠️ Segnala Errore
+                        </button>
+                    </div>
+                `;
+                layout.appendChild(zoneDiv);
+            });
         }
 
-        function updateScore() {
-            document.getElementById('scoreCounter').textContent = `${inspectedZones.length} / ${totalZones}`;
-        }
-
-        function showModal(zone) {
+        function viewDetails(zoneId) {
+            const zone = zonesData[zoneId];
             const modal = document.getElementById('zoneModal');
+            
             document.getElementById('modalIcon').textContent = zone.icon;
             document.getElementById('modalTitle').textContent = zone.title;
-            document.getElementById('modalSubtitle').textContent = zone.hasError ? 
-                '⚠️ Criticità rilevate' : '✓ Area conforme';
-
-            let bodyHTML = '';
-
-            if (zone.hasError) {
-                bodyHTML = `
-                    <div class="error-list">
-                        <h4>⚠️ Errori Identificati</h4>
-                        ${zone.errors.map(err => `
-                            <div class="error-item">
-                                <p>${err}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="norm-reference">
-                        <strong>📖 Riferimenti Normativi:</strong><br>
-                        ${zone.norm}
-                    </div>
-                `;
-            } else {
-                bodyHTML = `
-                    <div class="compliance-box">
-                        <h4>✓ Area Conforme</h4>
-                        <p>${zone.compliance}</p>
-                    </div>
-                    <div class="norm-reference">
-                        <strong>📖 Riferimenti Normativi:</strong><br>
-                        ${zone.norm}
-                    </div>
-                `;
-            }
-
-            document.getElementById('modalBody').innerHTML = bodyHTML;
+            
+            document.getElementById('modalBody').innerHTML = `
+                <div class="description-box">
+                    <h4>📋 Situazione Attuale</h4>
+                    <p>${zone.description}</p>
+                </div>
+            `;
+            
             modal.classList.add('show');
         }
 
@@ -873,12 +788,32 @@
             document.getElementById('zoneModal').classList.remove('show');
         }
 
-        function finalizeInspection() {
-            if (inspectedZones.length < totalZones) {
-                alert(`Devi ispezionare tutte le ${totalZones} zone prima di completare.`);
-                return;
+        function toggleFlag(zoneId) {
+            const btn = document.getElementById(`flag-${zoneId}`);
+            const zoneDiv = document.querySelector(`.zone-${zoneId}`);
+            
+            if (flaggedZones.includes(zoneId)) {
+                // Rimuovi flag
+                flaggedZones = flaggedZones.filter(id => id !== zoneId);
+                btn.classList.remove('active');
+                btn.textContent = '⚠️ Segnala Errore';
+                zoneDiv.classList.remove('flagged');
+            } else {
+                // Aggiungi flag
+                flaggedZones.push(zoneId);
+                btn.classList.add('active');
+                btn.textContent = '✓ Segnalato';
+                zoneDiv.classList.add('flagged');
             }
+            
+            updateCounter();
+        }
 
+        function updateCounter() {
+            document.getElementById('scoreCounter').textContent = `${flaggedZones.length} / 11`;
+        }
+
+        function finalizeInspection() {
             document.getElementById('siteLayout').style.display = 'none';
             document.getElementById('scoreDisplay').style.display = 'none';
             document.getElementById('finalizeBtn').style.display = 'none';
@@ -888,70 +823,100 @@
         function showResults() {
             document.getElementById('results').classList.add('active');
 
-            const totalErrors = Object.values(zonesData).filter(z => z.hasError).length;
-            const score = Math.round((errorsFound / totalErrors) * 100);
+            const zonesWithErrors = Object.keys(zonesData).filter(id => zonesData[id].hasError);
+            const correctlyFlagged = flaggedZones.filter(id => zonesData[id].hasError);
+            const missedErrors = zonesWithErrors.filter(id => !flaggedZones.includes(id));
+            const falsePositives = flaggedZones.filter(id => !zonesData[id].hasError);
 
+            // Calcolo punteggio
+            const correctScore = correctlyFlagged.length * 12; // 12 punti per errore trovato
+            const missedPenalty = missedErrors.length * 8; // -8 per errore mancato
+            const falsePenalty = falsePositives.length * 5; // -5 per falso allarme
+            const totalScore = Math.max(0, Math.min(100, correctScore - missedPenalty - falsePenalty));
+
+            // Badge punteggio
             const badge = document.getElementById('finalScoreBadge');
             const message = document.getElementById('finalMessage');
 
-            if (score >= 80) {
+            if (totalScore >= 80) {
                 badge.className = 'score-badge excellent';
-                badge.textContent = `${score}/100 - Eccellente`;
-                message.textContent = 'Hai identificato la maggior parte delle criticità. Ottima capacità di analisi organizzativa del cantiere.';
-            } else if (score >= 60) {
+                badge.textContent = `${totalScore}/100 - Eccellente`;
+                message.textContent = 'Hai identificato correttamente la maggior parte delle criticità organizzative. Ottima capacità di analisi del cantiere.';
+            } else if (totalScore >= 60) {
                 badge.className = 'score-badge good';
-                badge.textContent = `${score}/100 - Buono`;
-                message.textContent = 'Buona performance, ma alcune criticità sono sfuggite. Rivedi i principi di organizzazione del cantiere.';
+                badge.textContent = `${totalScore}/100 - Buono`;
+                message.textContent = 'Buona performance, ma alcune criticità sono state trascurate o sovrastimate. Rivedi i principi di organizzazione.';
             } else {
                 badge.className = 'score-badge poor';
-                badge.textContent = `${score}/100 - Da migliorare`;
-                message.textContent = 'Molte criticità non sono state identificate. Ti consigliamo di approfondire l\'UD3 prima di procedere.';
+                badge.textContent = `${totalScore}/100 - Da migliorare`;
+                message.textContent = 'L\'analisi presenta diverse lacune. Ti consigliamo di rivedere l\'UD3 prima di procedere.';
             }
 
-            // Genera riepilogo
-            const summaryGrid = document.getElementById('summaryGrid');
+            // Risultati dettagliati
+            const detailedDiv = document.getElementById('detailedResults');
+            let resultsHTML = '';
+
+            // Zone corrette
+            correctlyFlagged.forEach(id => {
+                const zone = zonesData[id];
+                resultsHTML += `
+                    <div class="zone-result correct">
+                        <h4><span class="status">✓</span> ${zone.title} - Errore Identificato Correttamente</h4>
+                        <p><strong>Le criticità presenti erano:</strong></p>
+                        <ul>
+                            ${zone.errorDetails.map(e => `<li>${e}</li>`).join('')}
+                        </ul>
+                        <div class="norm-ref">📖 ${zone.norm}</div>
+                    </div>
+                `;
+            });
+
+            // Errori mancati
+            missedErrors.forEach(id => {
+                const zone = zonesData[id];
+                resultsHTML += `
+                    <div class="zone-result missed">
+                        <h4><span class="status">✗</span> ${zone.title} - Errore Non Identificato</h4>
+                        <p><strong>⚠️ Questa zona presentava le seguenti criticità che non hai segnalato:</strong></p>
+                        <ul>
+                            ${zone.errorDetails.map(e => `<li>${e}</li>`).join('')}
+                        </ul>
+                        <div class="norm-ref">📖 ${zone.norm}</div>
+                    </div>
+                `;
+            });
+
+            // Falsi positivi
+            falsePositives.forEach(id => {
+                const zone = zonesData[id];
+                resultsHTML += `
+                    <div class="zone-result false-positive">
+                        <h4><span class="status">⚠️</span> ${zone.title} - Falso Allarme</h4>
+                        <p><strong>Hai segnalato questa zona, ma era conforme:</strong></p>
+                        <p>${zone.complianceReason}</p>
+                        <div class="norm-ref">📖 ${zone.norm}</div>
+                    </div>
+                `;
+            });
+
+            // Zone conformi non segnalate (corretto)
+            const correctlyNotFlagged = Object.keys(zonesData).filter(id => 
+                !zonesData[id].hasError && !flaggedZones.includes(id)
+            );
             
-            const errorZones = Object.entries(zonesData).filter(([id, data]) => data.hasError);
-            const compliantZones = Object.entries(zonesData).filter(([id, data]) => !data.hasError);
+            if (correctlyNotFlagged.length > 0) {
+                resultsHTML += `
+                    <div class="zone-result correct">
+                        <h4><span class="status">✓</span> Zone Conformi Identificate Correttamente</h4>
+                        <p>Hai giustamente NON segnalato le seguenti zone conformi:</p>
+                        <ul>
+                            ${correctlyNotFlagged.map(id => `<li><strong>${zonesData[id].title}</strong></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
 
-            summaryGrid.innerHTML = `
-                <div class="summary-card" style="border-left-color: #f44336;">
-                    <h4>⚠️ Zone con Criticità (${errorZones.length})</h4>
-                    <ul>
-                        ${errorZones.map(([id, data]) => `<li><strong>${data.title}:</strong> ${data.errors.length} problemi rilevati</li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="summary-card" style="border-left-color: #4caf50;">
-                    <h4>✓ Zone Conformi (${compliantZones.length})</h4>
-                    <ul>
-                        ${compliantZones.map(([id, data]) => `<li><strong>${data.title}</strong></li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="summary-card" style="border-left-color: #2196f3;">
-                    <h4>📚 Principi di Organizzazione Cantiere</h4>
-                    <ul>
-                        <li>Separazione fisica tra viabilità mezzi e pedoni (art. 108)</li>
-                        <li>Delimitazione aree pericolose (gru, scavi) con transenne</li>
-                        <li>Vie di fuga sempre libere e segnalate</li>
-                        <li>Stoccaggio materiali secondo compatibilità e portata</li>
-                        <li>Servizi dimensionati sul numero reale di lavoratori</li>
-                        <li>Gestione rifiuti con separazione e tracciabilità</li>
-                    </ul>
-                </div>
-
-                <div class="summary-card" style="border-left-color: #ff9800;">
-                    <h4>📖 Normativa di Riferimento</h4>
-                    <ul>
-                        <li><strong>D.Lgs. 81/2008:</strong> Titolo IV (cantieri), art. 108 (viabilità), Allegato XIII (servizi)</li>
-                        <li><strong>Allegato XVIII:</strong> Lavori in quota e ponteggi</li>
-                        <li><strong>D.Lgs. 152/2006:</strong> Gestione rifiuti</li>
-                        <li><strong>Legge 159/2025:</strong> Badge elettronico e patente a crediti</li>
-                        <li><strong>UNI EN 12811:</strong> Ponteggi metallici</li>
-                    </ul>
-                </div>
-            `;
+            detailedDiv.innerHTML = resultsHTML;
         }
 
         // Chiudi modal cliccando fuori
