@@ -120,7 +120,7 @@
         .site-layout {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 140px);
+            grid-template-rows: repeat(3, 150px);
             gap: 12px;
             margin-bottom: 30px;
             background: #ecf0f1;
@@ -151,7 +151,7 @@
         }
 
         .zone-icon {
-            font-size: 1,5em;
+            font-size: 1.5em;
             margin-bottom: 5px;
         }
 
@@ -201,18 +201,16 @@
             color: white;
         }
 
-        /* Posizioni specifiche */
+        /* Posizioni zone (9 zone su griglia 4x3) */
         .zone-ingresso { grid-column: 1; grid-row: 1; }
         .zone-viabilita-mezzi { grid-column: 2 / 4; grid-row: 1; }
         .zone-baraccamenti { grid-column: 4; grid-row: 1 / 3; }
         .zone-deposito-materiali { grid-column: 1 / 3; grid-row: 2; }
-        .zone-gru { grid-column: 3; grid-row: 2 / 4; }
-        .zone-scavo { grid-column: 1; grid-row: 3; }
-        .zone-ponteggi { grid-column: 2; grid-row: 3; }
-        .zone-viabilita-pedoni { grid-column: 1 / 3; grid-row: 4; }
-        .zone-scarico { grid-column: 3; grid-row: 4; }
+        .zone-gru { grid-column: 3; grid-row: 2; }
+        .zone-viabilita-pedoni { grid-column: 1 / 3; grid-row: 3; }
+        .zone-scarico { grid-column: 3; grid-row: 3; }
         .zone-servizi { grid-column: 4; grid-row: 3; }
-        .zone-rifiuti { grid-column: 4; grid-row: 4; }
+        .zone-rifiuti { grid-column: 1; grid-row: 4; }
 
         .modal {
             display: none;
@@ -295,16 +293,6 @@
             color: #495057;
             line-height: 1.7;
             margin-bottom: 10px;
-        }
-
-        .description-box ul {
-            margin-left: 20px;
-            color: #495057;
-        }
-
-        .description-box li {
-            margin-bottom: 8px;
-            line-height: 1.6;
         }
 
         .btn {
@@ -510,7 +498,6 @@
         </div>
 
         <div class="content">
-            <!-- Introduzione -->
             <div id="intro" class="intro-box">
                 <h2>📋 Scenario del Cantiere</h2>
                 <p>Sei il <strong>datore di lavoro</strong> di un'impresa affidataria che deve verificare l'organizzazione 
@@ -523,9 +510,9 @@
                 <div class="instructions">
                     <h3>📌 Istruzioni</h3>
                     <ul>
-                        <li>Osserva il layout del cantiere (11 zone totali)</li>
-                        <li>Per ogni zona puoi cliccare <strong>"📋 Vedi Dettagli"</strong> per leggere la situazione specifica</li>
-                        <li>Se ritieni che una zona presenti errori organizzativi o logistici, clicca <strong>"⚠️ Segnala Errore"</strong></li>
+                        <li>Osserva il layout del cantiere (9 zone totali)</li>
+                        <li>Per ogni zona puoi cliccare <strong>"📋 Vedi Dettagli"</strong> per leggere la situazione organizzativa</li>
+                        <li>Se ritieni che una zona presenti errori logistici o organizzativi, clicca <strong>"⚠️ Segnala Errore"</strong></li>
                         <li>Puoi rivedere i dettagli e cambiare idea quante volte vuoi</li>
                         <li>Quando hai finito la valutazione, clicca <strong>"Conferma Valutazione"</strong></li>
                     </ul>
@@ -536,13 +523,11 @@
                 </button>
             </div>
 
-            <!-- Display Punteggio -->
             <div class="score-display" id="scoreDisplay">
                 <h3>Zone Segnalate con Errori</h3>
-                <div class="score-counter" id="scoreCounter">0 / 11</div>
+                <div class="score-counter" id="scoreCounter">0 / 9</div>
             </div>
 
-            <!-- Layout Cantiere -->
             <div id="siteLayout" class="site-layout" style="display: none;"></div>
 
             <div class="button-group no-print" id="finalizeBtn" style="display: none;">
@@ -551,7 +536,6 @@
                 </button>
             </div>
 
-            <!-- Risultati -->
             <div id="results" class="results-section">
                 <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">
                     📊 Report di Ispezione del Cantiere
@@ -583,14 +567,13 @@
         </div>
     </div>
 
-    <!-- Modal per dettagli zona -->
     <div class="modal" id="zoneModal">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-icon" id="modalIcon">🏗️</div>
                 <div class="modal-title">
                     <h3 id="modalTitle">Titolo Zona</h3>
-                    <p>Descrizione della situazione attuale</p>
+                    <p>Descrizione della situazione organizzativa</p>
                 </div>
             </div>
             <div id="modalBody"></div>
@@ -603,29 +586,28 @@
     </div>
 
     <script>
-        // Database zone con descrizioni NEUTRE (senza dire se è errore o meno)
         const zonesData = {
             'ingresso': {
                 icon: '🚪',
                 title: 'Ingresso Cantiere',
-                description: 'All\'ingresso del cantiere è presente un cancello metallico con lucchetto. Non è presente un cartello identificativo permanente con i dati del committente e delle imprese. Il badge elettronico non è stato ancora implementato. Non risulta un registro cartaceo delle presenze posizionato all\'entrata.',
+                description: 'All\'ingresso del cantiere è presente un cancello metallico con lucchetto. Non è presente un cartello identificativo permanente con i dati del committente e delle imprese. Il sistema di badge elettronico non è stato implementato. Non risulta un registro cartaceo o digitale delle presenze posizionato all\'entrata.',
                 hasError: true,
                 errorDetails: [
                     'Mancanza di cartello identificativo del cantiere con dati committente e imprese (obbligatorio per art. 90 D.Lgs. 81/2008)',
-                    'Assenza di registro delle presenze all\'ingresso',
-                    'Badge elettronico non implementato (obbligo L. 159/2025)'
+                    'Assenza di sistema di registrazione delle presenze',
+                    'Badge elettronico non implementato (obbligo L. 159/2025 per tracciabilità accessi)'
                 ],
                 norm: 'D.Lgs. 81/2008, art. 90 e 26; Legge 159/2025 (patente a crediti e badge elettronico)'
             },
             'viabilita-mezzi': {
                 icon: '🚛',
                 title: 'Viabilità Mezzi',
-                description: 'Il percorso per i mezzi d\'opera attraversa l\'intera lunghezza del cantiere. Nello stesso spazio transitano anche i lavoratori a piedi. Non sono presenti strisce di demarcazione o segnaletica orizzontale. Agli incroci non ci sono specchi parabolici. La larghezza del percorso è di circa 4 metri.',
+                description: 'Il percorso per i mezzi d\'opera attraversa l\'intera lunghezza del cantiere. Nello stesso spazio transitano anche i lavoratori a piedi senza separazione fisica. Non sono presenti strisce di demarcazione o segnaletica orizzontale. Agli incroci non ci sono specchi parabolici. La larghezza del percorso è di circa 4 metri.',
                 hasError: true,
                 errorDetails: [
                     'La viabilità dei mezzi non è separata fisicamente da quella pedonale (violazione art. 108 D.Lgs. 81/2008)',
                     'Assenza di segnaletica orizzontale (strisce gialle) e verticale (cartelli limite velocità)',
-                    'Mancano specchi parabolici negli incroci ciechi'
+                    'Mancano dispositivi di ausilio visivo negli incroci (specchi parabolici)'
                 ],
                 norm: 'D.Lgs. 81/2008, art. 108 - Viabilità nei cantieri; Allegato XVIII punto 1'
             },
@@ -635,100 +617,80 @@
                 description: 'I container prefabbricati sono posizionati a 15 metri dall\'area operativa principale, in zona pianeggiante. Sono dotati di finestre apribili e ventilazione naturale. Le uscite di sicurezza sono chiaramente segnalate e non ostruite. Sono presenti estintori a polvere ABC ogni 10 metri. L\'illuminazione è garantita da lampade a LED.',
                 hasError: false,
                 errorDetails: null,
-                complianceReason: 'I baraccamenti sono conformi: distanti dall\'area operativa, con vie di fuga libere, illuminazione naturale e aerazione adeguata. Presenti estintori a polvere ABC ogni 10 metri. Conformi all\'Allegato XIII D.Lgs. 81/2008.',
+                complianceReason: 'I baraccamenti sono conformi: distanti dall\'area operativa, con vie di fuga libere, illuminazione naturale e aerazione adeguata. Presenti presidi antincendio. Conformi all\'Allegato XIII D.Lgs. 81/2008.',
                 norm: 'D.Lgs. 81/2008, Allegato XIII - Requisiti luoghi di lavoro'
             },
             'deposito-materiali': {
                 icon: '📦',
                 title: 'Deposito Materiali',
-                description: 'Il deposito materiali si trova in un\'area coperta vicino all\'ingresso. I sacchi di cemento sono appoggiati direttamente sul pavimento. Accanto ci sono fusti di vernici e solventi. Il deposito si trova lungo quella che sembrerebbe essere una delle vie di uscita del cantiere. Non sono presenti cartelli che indichino limiti di peso o portata.',
+                description: 'Il deposito materiali si trova in un\'area coperta vicino all\'ingresso. I sacchi di cemento sono appoggiati direttamente sul pavimento. Accanto ci sono fusti di vernici e solventi nello stesso settore. Il deposito si trova lungo quella che sembrerebbe essere una delle vie di uscita del cantiere. Non sono presenti cartelli che indichino limiti di peso o portata.',
                 hasError: true,
                 errorDetails: [
-                    'I materiali sono depositati sopra una via di fuga (violazione D.M. 3/9/2021 su emergenze)',
-                    'Assenza di separazione tra materiali combustibili e infiammabili',
-                    'Sacchi di cemento stoccati direttamente a terra senza pallets (rischio umidità e degrado)',
-                    'Mancanza di cartello indicante portata massima del solaio'
+                    'I materiali sono depositati lungo una via di fuga (violazione D.M. 3/9/2021 sulla gestione emergenze)',
+                    'Assenza di separazione tra materiali incompatibili (cemento, vernici, solventi)',
+                    'Mancanza di indicazioni sulla capacità di carico dell\'area di stoccaggio',
+                    'Stoccaggio a terra senza pallets (rischio umidità e degrado materiali)'
                 ],
-                norm: 'D.Lgs. 81/2008, Allegato IV punto 1.4; D.M. 3 settembre 2021 (antincendio)'
+                norm: 'D.Lgs. 81/2008, Allegato IV punto 1.4; D.M. 3 settembre 2021 (antincendio nei cantieri)'
             },
             'gru': {
                 icon: '🏗️',
                 title: 'Area Gru Torre',
-                description: 'La gru torre è installata nella zona centrale del cantiere. L\'area sottostante il braccio rotante non presenta delimitazioni fisiche. Non ci sono cartelli che vietino l\'accesso o la sosta. Il libretto della gru è conservato nell\'ufficio di cantiere. L\'ultima verifica periodica risulta effettuata 8 mesi fa.',
+                description: 'La gru torre è installata nella zona centrale del cantiere. L\'area sottostante il braccio rotante non presenta delimitazioni fisiche né transenne. Non ci sono cartelli che vietino l\'accesso o la sosta nella zona di raggio d\'azione. Durante le operazioni di sollevamento, i lavoratori transitano liberamente nell\'area.',
                 hasError: true,
                 errorDetails: [
-                    'L\'area sottostante alla gru non è delimitata con transenne o barriere fisse',
-                    'Manca segnaletica di divieto di accesso e sosta',
-                    'Non risulta verificato il libretto di manutenzione della gru (ultimo controllo > 6 mesi fa)'
+                    'L\'area di lavoro della gru non è delimitata con transenne o barriere fisse',
+                    'Manca segnaletica di divieto di accesso e sosta nell\'area di sollevamento',
+                    'Assenza di procedure per la gestione del transito durante le operazioni di sollevamento'
                 ],
-                norm: 'D.Lgs. 81/2008, artt. 70-71 e Allegato VI; UNI ISO 9927 (verifiche apparecchi di sollevamento)'
-            },
-            'scavo': {
-                icon: '⛏️',
-                title: 'Area Scavo',
-                description: 'È presente uno scavo di 2,5 metri di profondità per la realizzazione delle fondazioni. Le pareti dello scavo sono verticali e non sono presenti strutture di sostegno. Il materiale di risulta è accatastato a circa 40 cm dal bordo. Per scendere nello scavo i lavoratori utilizzano una scala a pioli appoggiata alla parete.',
-                hasError: true,
-                errorDetails: [
-                    'Lo scavo profondo 2,5 m è privo di armature di sostegno (violazione art. 119 D.Lgs. 81/2008)',
-                    'Materiali di risulta accatastati a meno di 60 cm dal bordo scavo (rischio franamento)',
-                    'Assenza di scala di accesso sicura per gli operatori'
-                ],
-                norm: 'D.Lgs. 81/2008, artt. 119-120 - Scavi e fondazioni'
-            },
-            'ponteggi': {
-                icon: '🪜',
-                title: 'Ponteggi Facciata',
-                description: 'Il ponteggio metallico copre l\'intera facciata dell\'edificio. È dotato di parapetti su tutti i piani, tavole fermapiede e mantovane installate ogni 12 metri. Gli ancoraggi alla struttura sono visibili e distanziati secondo norma. È presente il verbale di montaggio firmato e datato, conservato nell\'ufficio di cantiere.',
-                hasError: false,
-                errorDetails: null,
-                complianceReason: 'Il ponteggio è conforme: presenza di parapetti completi su tutti i lati, tavole fermapiede, mantovane ogni 12 m, ancoraggi verificati. Presente verbale di montaggio firmato dal preposto. Conforme a Allegato XVIII D.Lgs. 81/2008 e UNI EN 12811.',
-                norm: 'D.Lgs. 81/2008, Allegato XVIII - Lavori in quota e ponteggi; UNI EN 12811'
+                norm: 'D.Lgs. 81/2008, art. 153 - Protezione contro la caduta di materiali dall\'alto; Allegato VI'
             },
             'viabilita-pedoni': {
                 icon: '🚶',
                 title: 'Viabilità Pedonale',
-                description: 'Il percorso pedonale principale del cantiere passa direttamente sotto il raggio di azione della gru torre. Non sono presenti tettoie o coperture protettive sopra questo percorso. L\'illuminazione serale è garantita da lampade a LED montate su pali, ma alcune zone rimangono poco illuminate.',
+                description: 'Il percorso pedonale principale del cantiere passa direttamente sotto il raggio di azione della gru torre. Non sono presenti tettoie o coperture protettive sopra questo percorso. L\'illuminazione serale è garantita da lampade a LED montate su pali, ma alcune zone rimangono poco illuminate dopo il tramonto.',
                 hasError: true,
                 errorDetails: [
                     'Il percorso pedonale passa sotto la zona di sollevamento della gru (rischio caduta materiali)',
-                    'Assenza di pensiline o tunnel protettivi',
-                    'Illuminazione insufficiente per transiti notturni o in condizioni di scarsa visibilità'
+                    'Assenza di pensiline, tunnel protettivi o percorsi alternativi',
+                    'Illuminazione insufficiente in alcune aree per garantire transiti sicuri nelle ore serali'
                 ],
-                norm: 'D.Lgs. 81/2008, art. 108 e 153 (protezione caduta materiali dall\'alto)'
+                norm: 'D.Lgs. 81/2008, art. 108 (viabilità) e 153 (protezione caduta materiali dall\'alto)'
             },
             'scarico': {
                 icon: '📥',
                 title: 'Zona Scarico',
-                description: 'La zona di scarico merci è delimitata con nastro bianco-rosso e cartelli di avviso. Durante le operazioni di scarico è sempre presente un operatore a terra che assiste l\'autista nelle manovre di retromarcia. L\'area è separata dalla viabilità principale ed è ben visibile dall\'ingresso.',
+                description: 'La zona di scarico merci è delimitata con nastro bianco-rosso e cartelli di avviso. Durante le operazioni di scarico è sempre presente un operatore a terra che assiste l\'autista nelle manovre di retromarcia. L\'area è separata dalla viabilità principale ed è ben visibile dall\'ingresso. È presente segnaletica di limite velocità.',
                 hasError: false,
                 errorDetails: null,
-                complianceReason: 'La zona scarico è correttamente delimitata, segnalata e separata dalla viabilità principale. Presente moviere durante le operazioni di retromarcia. Conforme alle procedure del Piano Operativo di Sicurezza.',
+                complianceReason: 'La zona scarico è correttamente organizzata: delimitata, segnalata e separata dalla viabilità principale. Presente moviere durante le operazioni di retromarcia. Conforme alle procedure del Piano Operativo di Sicurezza.',
                 norm: 'D.Lgs. 81/2008, art. 96 - Obblighi imprese esecutrici; Allegato VI punto 3'
             },
             'servizi': {
                 icon: '🚻',
                 title: 'Servizi Igienici',
-                description: 'I servizi igienici sono costituiti da due container WC chimici posizionati vicino ai baraccamenti. Sono presenti lavabi con acqua fredda. Non ci sono armadietti spogliatoio separati. Il numero di lavoratori presenti in cantiere è di circa 28 persone. I WC vengono puliti una volta a settimana da ditta esterna.',
+                description: 'I servizi igienici sono costituiti da due container WC chimici posizionati vicino ai baraccamenti. Sono presenti lavabi con acqua fredda. Non ci sono armadietti spogliatoio separati per indumenti da lavoro e civili. Il numero di lavoratori presenti in cantiere è di circa 28 persone. I WC vengono puliti una volta a settimana da ditta esterna.',
                 hasError: true,
                 errorDetails: [
-                    'I servizi sono dimensionati per 15 lavoratori, ma in cantiere operano 28 persone (sottodimensionamento)',
-                    'Mancanza di acqua calda per il lavaggio (obbligatoria in presenza di agenti chimici o biologici)',
-                    'Assenza di armadietti spogliatoio separati per indumenti da lavoro e civili'
+                    'I servizi sono sottodimensionati per 28 lavoratori (necessari almeno 3 WC secondo Allegato XIII)',
+                    'Mancanza di acqua calda per il lavaggio',
+                    'Assenza di armadietti spogliatoio separati per indumenti da lavoro e civili',
+                    'Frequenza di pulizia insufficiente (richiesta giornaliera per cantieri con oltre 20 addetti)'
                 ],
                 norm: 'D.Lgs. 81/2008, Allegato XIII - Locali di riposo, spogliatoi, servizi igienici'
             },
             'rifiuti': {
                 icon: '🗑️',
                 title: 'Deposito Rifiuti',
-                description: 'Il deposito rifiuti è un\'area all\'aperto con tre cassoni metallici. In un cassone sono presenti mattoni, calcinacci e sacchi di cemento vuoti. In un altro ci sono barattoli di vernici, flaconi di solventi e stracci sporchi. I contenitori non hanno coperchio e non presentano etichette. Non è presente documentazione relativa alla gestione dei rifiuti.',
+                description: 'Il deposito rifiuti è un\'area all\'aperto con tre cassoni metallici. In un cassone sono presenti mattoni, calcinacci e sacchi di cemento vuoti. In un altro ci sono barattoli di vernici, flaconi di solventi e stracci sporchi mischiati. I contenitori non hanno coperchio e non presentano etichette con codice CER. Non è presente documentazione relativa alla gestione dei rifiuti in cantiere.',
                 hasError: true,
                 errorDetails: [
-                    'Rifiuti speciali (vernici, solventi) mischiati con rifiuti inerti (mattoni, calcinacci)',
-                    'Contenitori privi di copertura e etichettatura con codice CER',
-                    'Assenza di bacino di contenimento per liquidi pericolosi',
-                    'Nessun registro di carico/scarico rifiuti presente in cantiere'
+                    'Rifiuti pericolosi (vernici, solventi) mischiati con rifiuti inerti senza separazione',
+                    'Contenitori privi di copertura e identificazione con codice CER',
+                    'Assenza di registro di carico/scarico rifiuti',
+                    'Mancanza di documentazione sul trasportatore autorizzato'
                 ],
-                norm: 'D.Lgs. 152/2006 (Testo Unico Ambiente); D.Lgs. 81/2008, Titolo IX (sostanze pericolose)'
+                norm: 'D.Lgs. 152/2006 (Testo Unico Ambiente - gestione rifiuti); D.Lgs. 81/2008, art. 161 (gestione rifiuti in cantiere)'
             }
         };
 
@@ -776,7 +738,7 @@
             
             document.getElementById('modalBody').innerHTML = `
                 <div class="description-box">
-                    <h4>📋 Situazione Attuale</h4>
+                    <h4>📋 Situazione Organizzativa</h4>
                     <p>${zone.description}</p>
                 </div>
             `;
@@ -793,13 +755,11 @@
             const zoneDiv = document.querySelector(`.zone-${zoneId}`);
             
             if (flaggedZones.includes(zoneId)) {
-                // Rimuovi flag
                 flaggedZones = flaggedZones.filter(id => id !== zoneId);
                 btn.classList.remove('active');
                 btn.textContent = '⚠️ Segnala Errore';
                 zoneDiv.classList.remove('flagged');
             } else {
-                // Aggiungi flag
                 flaggedZones.push(zoneId);
                 btn.classList.add('active');
                 btn.textContent = '✓ Segnalato';
@@ -810,7 +770,7 @@
         }
 
         function updateCounter() {
-            document.getElementById('scoreCounter').textContent = `${flaggedZones.length} / 11`;
+            document.getElementById('scoreCounter').textContent = `${flaggedZones.length} / 9`;
         }
 
         function finalizeInspection() {
@@ -828,41 +788,37 @@
             const missedErrors = zonesWithErrors.filter(id => !flaggedZones.includes(id));
             const falsePositives = flaggedZones.filter(id => !zonesData[id].hasError);
 
-            // Calcolo punteggio
-            const correctScore = correctlyFlagged.length * 12; // 12 punti per errore trovato
-            const missedPenalty = missedErrors.length * 8; // -8 per errore mancato
-            const falsePenalty = falsePositives.length * 5; // -5 per falso allarme
+            const correctScore = correctlyFlagged.length * 14;
+            const missedPenalty = missedErrors.length * 10;
+            const falsePenalty = falsePositives.length * 7;
             const totalScore = Math.max(0, Math.min(100, correctScore - missedPenalty - falsePenalty));
 
-            // Badge punteggio
             const badge = document.getElementById('finalScoreBadge');
             const message = document.getElementById('finalMessage');
 
             if (totalScore >= 80) {
                 badge.className = 'score-badge excellent';
                 badge.textContent = `${totalScore}/100 - Eccellente`;
-                message.textContent = 'Hai identificato correttamente la maggior parte delle criticità organizzative. Ottima capacità di analisi del cantiere.';
+                message.textContent = 'Hai identificato correttamente le criticità organizzative. Ottima capacità di analisi del layout cantiere.';
             } else if (totalScore >= 60) {
                 badge.className = 'score-badge good';
                 badge.textContent = `${totalScore}/100 - Buono`;
-                message.textContent = 'Buona performance, ma alcune criticità sono state trascurate o sovrastimate. Rivedi i principi di organizzazione.';
+                message.textContent = 'Buona performance, ma alcune criticità sono sfuggite. Rivedi i principi di organizzazione del cantiere.';
             } else {
                 badge.className = 'score-badge poor';
                 badge.textContent = `${totalScore}/100 - Da migliorare`;
-                message.textContent = 'L\'analisi presenta diverse lacune. Ti consigliamo di rivedere l\'UD3 prima di procedere.';
+                message.textContent = 'L\'analisi presenta lacune. Ti consigliamo di rivedere l\'UD3 prima di procedere.';
             }
 
-            // Risultati dettagliati
             const detailedDiv = document.getElementById('detailedResults');
             let resultsHTML = '';
 
-            // Zone corrette
             correctlyFlagged.forEach(id => {
                 const zone = zonesData[id];
                 resultsHTML += `
                     <div class="zone-result correct">
                         <h4><span class="status">✓</span> ${zone.title} - Errore Identificato Correttamente</h4>
-                        <p><strong>Le criticità presenti erano:</strong></p>
+                        <p><strong>Le criticità organizzative presenti erano:</strong></p>
                         <ul>
                             ${zone.errorDetails.map(e => `<li>${e}</li>`).join('')}
                         </ul>
@@ -871,13 +827,12 @@
                 `;
             });
 
-            // Errori mancati
             missedErrors.forEach(id => {
                 const zone = zonesData[id];
                 resultsHTML += `
                     <div class="zone-result missed">
                         <h4><span class="status">✗</span> ${zone.title} - Errore Non Identificato</h4>
-                        <p><strong>⚠️ Questa zona presentava le seguenti criticità che non hai segnalato:</strong></p>
+                        <p><strong>⚠️ Questa zona presentava criticità organizzative che non hai segnalato:</strong></p>
                         <ul>
                             ${zone.errorDetails.map(e => `<li>${e}</li>`).join('')}
                         </ul>
@@ -886,7 +841,6 @@
                 `;
             });
 
-            // Falsi positivi
             falsePositives.forEach(id => {
                 const zone = zonesData[id];
                 resultsHTML += `
@@ -899,7 +853,6 @@
                 `;
             });
 
-            // Zone conformi non segnalate (corretto)
             const correctlyNotFlagged = Object.keys(zonesData).filter(id => 
                 !zonesData[id].hasError && !flaggedZones.includes(id)
             );
@@ -919,7 +872,6 @@
             detailedDiv.innerHTML = resultsHTML;
         }
 
-        // Chiudi modal cliccando fuori
         document.getElementById('zoneModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
